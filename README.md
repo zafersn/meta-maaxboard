@@ -60,6 +60,12 @@ sudo chmod a+x /usr/bin/repo
 
 Download meta layers from NXP
 
+to run next code block, firstly you need to change git repo name due to changed unencrypted Git protocol. SO
+```bash
+echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
+```
+then 
+
 ```bash
 mkdir imx-yocto-bsp
 $ cd imx-yocto-bsp
