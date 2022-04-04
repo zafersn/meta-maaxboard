@@ -107,8 +107,8 @@ NOW we need to edit **./.repo/manifests/imx-4.14.98-2.3.0.xml** It should look l
 
 </manifest>
 ```
-then run code block below. Just in case, if you encounter any error like unencrypted Git security protocol, you need to find and change all git repo link
-git to https format. For example: from git://github.com/meta-qt5 to https://github.com/meta-qt5
+then run code block below. Just in case, if you encounter any error like unencrypted Git security protocol, you need to find and change all git repo URLs
+with https format instead of git://. For example: from git://github.com/meta-qt5 to https://github.com/meta-qt5
 
 ```
 $ repo sync
