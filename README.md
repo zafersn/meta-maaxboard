@@ -60,16 +60,57 @@ sudo chmod a+x /usr/bin/repo
 
 Download meta layers from NXP
 
-to run next code block, firstly you need to change git repo name due to changed unencrypted Git protocol. SO
-```bash
-echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
-```
-then 
-
 ```bash
 mkdir imx-yocto-bsp
 $ cd imx-yocto-bsp
-$ repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-sumo -m imx-4.14.98-2.2.0.xml
+$ repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-sumo -m imx-4.14.98-2.3.0.xml
+```
+
+**WARNING!**
+This repo provide by repo owner is not anymore valid due to changed unencrypted Git security protocols. So I needed to edit repo above and then run **repo sync** code
+
+NOW we need to edit **./.repo/manifests/imx-4.14.98-2.3.0.xml** It should look like below:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <default sync-j="2"/>
+
+  <remote fetch="https://git.yoctoproject.org" name="yocto"/>
+  <remote fetch="https://github.com/Freescale" name="community"/>
+  <remote fetch="https://github.com/openembedded" name="oe"/>
+  <remote fetch="https://github.com/OSSystems" name="OSSystems"/>
+  <remote fetch="https://github.com/meta-qt5"  name="QT5"/>
+  <remote fetch="https://source.codeaurora.org/external/imx" name="CAF"/>
+
+
+  <project remote="yocto" revision="cbb677e9a09d5dad34404a851f7c23aeb5122465" name="poky" path="sources/poky"/>
+  <project remote="yocto" revision="86772601e7f6ea188dfaf64097edafc05e15aef3" name="meta-freescale" path="sources/meta-freescale"/>
+
+  <project remote="oe" revision="8760facba1bceb299b3613b8955621ddaa3d4c3f" name="meta-openembedded" path="sources/meta-openembedded"/>
+
+  <project remote="community" revision="70535e13dd2aabbad53243518f4cc5064d284592" name="fsl-community-bsp-base" path="sources/base">
+    <linkfile dest="README" src="README"/>
+    <linkfile dest="setup-environment" src="setup-environment"/>
+  </project>
+
+  <project remote="community" revision="82037216280a39957fb4272581637abec734ad50" name="meta-freescale-3rdparty" path="sources/meta-freescale-3rdparty"/>
+  <project remote="community" revision="f7e2216e93aff14ac32728a13637a48df436b7f4" name="meta-freescale-distro" path="sources/meta-freescale-distro"/>
+
+  <project remote="OSSystems" revision="75640e14e325479c076b6272b646be7a239c18aa" name="meta-browser" path="sources/meta-browser" />
+  <project remote="QT5" revision="d4e7f73d04e8448d326b6f89908701e304e37d65" name="meta-qt5" path="sources/meta-qt5" />
+
+  <project remote="CAF" revision="e1cab5d0fbb8f586f42cf67519822992c852be4c" name="meta-fsl-bsp-release" path="sources/meta-fsl-bsp-release" >
+     <linkfile src="imx/tools/fsl-setup-release.sh" dest="fsl-setup-release.sh"/>
+     <linkfile src="imx/README" dest="README-IMXBSP"/>
+  </project>
+
+</manifest>
+```
+then run code block below. Just in case, if you encounter any error like unencrypted Git security protocol, you need to find and change all git repo link
+git to https format. For example: from git://github.com/meta-qt5 to https://github.com/meta-qt5
+
+```
 $ repo sync
 ```
 
