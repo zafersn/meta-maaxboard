@@ -1,4 +1,4 @@
-MACHINE ??= 'maaxboard'
+MACHINE ??= 'maaxboard-8ulp'
 DISTRO ?= 'fsl-imx-wayland-lite'
 PACKAGE_CLASSES ?= 'package_deb'
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks tools-sdk tools-debug"
